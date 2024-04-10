@@ -1,0 +1,78 @@
+mybatis:
+  config-location: classpath:/mybatis/mybatis-config.xml
+  mapper-locations: classpath:/mybatis/mapping/*.xml
+
+app:
+  name: com.pcl.healthism
+
+## jackson配置
+spring:
+  jackson:
+    # 设置属性命名策略,对应jackson下PropertyNamingStrategy中的常量值，SNAKE_CASE-返回的json驼峰式转下划线，json body下划线传到后端自动转驼峰式
+    property-naming-strategy: LOWER_CAMEL_CASE
+    # 全局设置@JsonFormat的格式pattern
+    date-format: yyyy-MM-dd HH:mm:ss
+    # 当地时区
+    locale: zh
+    # 设置全局时区
+    time-zone: GMT+8
+    default-property-inclusion: NON_NULL #不为空的属性才会序列化,具体属性可看JsonInclude.Include
+    serialization:
+      WRITE_DATES_AS_TIMESTAMPS: false # 返回的java.util.date转换成timestamp
+      FAIL_ON_EMPTY_BEANS: false # 对象为空时是否报错，默认true
+    deserialization:
+      # 常用,json中含pojo不存在属性时是否失败报错,默认true
+      FAIL_ON_UNKNOWN_PROPERTIES: false
+    mapper:
+      # 使用getter取代setter探测属性，如类中含getName()但不包含name属性与setName()，传输的vo json格式模板中依旧含name属性
+      USE_GETTERS_AS_SETTERS: true #默认false
+    parser:
+      ALLOW_SINGLE_QUOTES: true # 是否允许出现单引号,默认false
+
+  profiles:
+    active: dev    #分环境配置默认为开发环境配置，线上启动使用java -jar xxx.jar –spring.profiles.active=prod则可覆盖该配置
+  ####数据库配置
+  ## 注意有关超时设置的单位都是毫秒
+  ## 多数据源配置参考：https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#howto-two-datasources
+
+  datasource:
+    #添加上allowMultiQueries为true，以支持分号隔开的多个query的支持和插入多行记录的支持
+    url: jdbc:mysql://localhost:3306/lg_emotion?useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&useSSL=false&serverTimezone=UTC
+    username: root
+    password: root
+    #springboot官方推荐的史上最快最稳定的数据库链接池Hikari
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      minimum-idle: 5
+      maximum-pool-size: 10
+      #空闲连接清除时间（30分钟）
+      idle-timeout: 1800000
+      auto-commit: true
+      connection-timeout: 30000
+      connection-test-query: SELECT 1
+      pool-name: hkariPool
+      #mysql或其他数据库会定时主动清除空闲链接，通过设置该参数来自动发起test-query请求（需设置比数据库服务端的数值小）
+      #参考 https://github.com/brettwooldridge/HikariCP/issues/1138
+      max-lifetime: 1800000
+
+#### web服务配置
+#springboot默认内嵌tomcat作为web容器
+server:
+  port: 8088
+  tomcat:
+    uri-encoding: UTF-8
+    accesslog:
+      enabled: true
+      directory: ${user.dir}/logs #强烈推荐生产环境统一放到一个固定的目录,本示例会在工程根目录生成logs目录
+      request-attributes-enabled: true
+    max-http-post-size: 4MB
+    max-threads: 200
+    #同一时刻单机最大活跃链接数，不要设置过大，避免内存被耗尽（假如平均耗时50ms，则该配置单机QPS能到5w）
+    max-connections: 1000
+  servlet:
+    application-display-name: YourApp
+
+###日志配置
+logging:
+  config: classpath:log4j2-spring.xml
+

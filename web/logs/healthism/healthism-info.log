@@ -1,0 +1,45 @@
+2024-04-09 00:05:39.757 [main] INFO  com.pcl.healthism.web.DemoApplicationTests Starting DemoApplicationTests on DESKTOP-PI7D723 with PID 16656 (started by liufan in D:\学校\csNewMap-master\backend\web) (StartupInfoLogger.java:50)
+2024-04-09 00:05:39.771 [main] INFO  com.pcl.healthism.web.DemoApplicationTests The following profiles are active: dev (SpringApplication.java:650)
+2024-04-09 00:05:41.236 [main] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate Bootstrapping Spring Data repositories in DEFAULT mode. (RepositoryConfigurationDelegate.java:126)
+2024-04-09 00:05:41.284 [main] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate Finished Spring Data repository scanning in 31ms. Found 0 repository interfaces. (RepositoryConfigurationDelegate.java:182)
+2024-04-09 00:05:41.861 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$d93204a2] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying) (PostProcessorRegistrationDelegate.java:330)
+2024-04-09 00:05:42.687 [main] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer Tomcat initialized with port(s): 0 (http) (TomcatWebServer.java:90)
+2024-04-09 00:05:42.706 [main] INFO  org.apache.coyote.http11.Http11NioProtocol Initializing ProtocolHandler ["http-nio-auto-1"] (DirectJDKLog.java:173)
+2024-04-09 00:05:42.718 [main] INFO  org.apache.catalina.core.StandardService Starting service [Tomcat] (DirectJDKLog.java:173)
+2024-04-09 00:05:42.719 [main] INFO  org.apache.catalina.core.StandardEngine Starting Servlet engine: [Apache Tomcat/9.0.21] (DirectJDKLog.java:173)
+2024-04-09 00:05:42.924 [main] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] Initializing Spring embedded WebApplicationContext (DirectJDKLog.java:173)
+2024-04-09 00:05:42.925 [main] INFO  org.springframework.web.context.ContextLoader Root WebApplicationContext: initialization completed in 3101 ms (ServletWebServerApplicationContext.java:283)
+2024-04-09 00:05:43.262 [main] INFO  com.zaxxer.hikari.HikariDataSource hkariPool - Starting... (HikariDataSource.java:110)
+2024-04-09 00:05:44.405 [main] INFO  com.zaxxer.hikari.HikariDataSource hkariPool - Starting... (HikariDataSource.java:110)
+2024-04-09 00:05:45.481 [main] INFO  org.hibernate.jpa.internal.util.LogHelper HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...] (LogHelper.java:31)
+2024-04-09 00:05:45.570 [main] INFO  org.hibernate.Version HHH000412: Hibernate Core {5.3.10.Final} (Version.java:46)
+2024-04-09 00:05:45.572 [main] INFO  org.hibernate.cfg.Environment HHH000206: hibernate.properties not found (Environment.java:213)
+2024-04-09 00:05:45.796 [main] INFO  org.hibernate.annotations.common.Version HCANN000001: Hibernate Commons Annotations {5.0.4.Final} (JavaReflectionManager.java:49)
+2024-04-09 00:05:45.936 [main] INFO  com.zaxxer.hikari.HikariDataSource hkariPool - Starting... (HikariDataSource.java:110)
+2024-04-09 00:05:46.984 [main] INFO  org.apache.catalina.core.StandardService Stopping service [Tomcat] (DirectJDKLog.java:173)
+2024-04-09 00:05:46.996 [main] INFO  org.springframework.boot.autoconfigure.logging.ConditionEvaluationReportLoggingListener 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled. (ConditionEvaluationReportLoggingListener.java:135)
+2024-04-09 00:05:47.056 [main] INFO  com.pcl.healthism.web.DemoApplicationTests Starting DemoApplicationTests on DESKTOP-PI7D723 with PID 16656 (started by liufan in D:\学校\csNewMap-master\backend\web) (StartupInfoLogger.java:50)
+2024-04-09 00:05:47.057 [main] INFO  com.pcl.healthism.web.DemoApplicationTests The following profiles are active: dev (SpringApplication.java:650)
+2024-04-09 00:05:47.368 [main] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate Bootstrapping Spring Data repositories in DEFAULT mode. (RepositoryConfigurationDelegate.java:126)
+2024-04-09 00:05:47.379 [main] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate Finished Spring Data repository scanning in 11ms. Found 0 repository interfaces. (RepositoryConfigurationDelegate.java:182)
+2024-04-09 00:05:47.477 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$d93204a2] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying) (PostProcessorRegistrationDelegate.java:330)
+2024-04-09 00:05:47.650 [main] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer Tomcat initialized with port(s): 0 (http) (TomcatWebServer.java:90)
+2024-04-09 00:05:47.652 [main] INFO  org.apache.coyote.http11.Http11NioProtocol Initializing ProtocolHandler ["http-nio-auto-2"] (DirectJDKLog.java:173)
+2024-04-09 00:05:47.652 [main] INFO  org.apache.catalina.core.StandardService Starting service [Tomcat] (DirectJDKLog.java:173)
+2024-04-09 00:05:47.653 [main] INFO  org.apache.catalina.core.StandardEngine Starting Servlet engine: [Apache Tomcat/9.0.21] (DirectJDKLog.java:173)
+2024-04-09 00:05:47.685 [main] INFO  org.apache.catalina.core.ContainerBase.[Tomcat-1].[localhost].[/] Initializing Spring embedded WebApplicationContext (DirectJDKLog.java:173)
+2024-04-09 00:05:47.685 [main] INFO  org.springframework.web.context.ContextLoader Root WebApplicationContext: initialization completed in 626 ms (ServletWebServerApplicationContext.java:283)
+2024-04-09 00:05:48.022 [main] INFO  com.zaxxer.hikari.HikariDataSource hkariPool - Starting... (HikariDataSource.java:110)
+2024-04-09 00:05:49.049 [main] INFO  com.zaxxer.hikari.HikariDataSource hkariPool - Starting... (HikariDataSource.java:110)
+2024-04-09 00:05:50.078 [main] INFO  org.hibernate.jpa.internal.util.LogHelper HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...] (LogHelper.java:31)
+2024-04-09 00:05:50.083 [main] INFO  com.zaxxer.hikari.HikariDataSource hkariPool - Starting... (HikariDataSource.java:110)
+2024-04-09 00:05:51.123 [main] INFO  org.apache.catalina.core.StandardService Stopping service [Tomcat] (DirectJDKLog.java:173)
+2024-04-09 00:05:51.128 [main] INFO  org.springframework.boot.autoconfigure.logging.ConditionEvaluationReportLoggingListener 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled. (ConditionEvaluationReportLoggingListener.java:135)

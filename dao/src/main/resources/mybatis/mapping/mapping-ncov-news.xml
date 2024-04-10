@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pcl.healthism.dao.mapper.NcovNewsMapper">
+
+    <sql id="table_columns">
+        `id`, `title`, `url`, `content`, `timestamp` ,`latitude` ,
+        `longitude` , `committed`,`contributory`, `add_timestamp_mils`,`mod_timestamp_mils`
+    </sql>
+
+
+    <!--插入数据-->
+    <insert id="insert" parameterType="NcovNewsPO" keyProperty="id" >
+        insert into `ncov_news`(
+         `title`, `url`, `content`, `timestamp` ,`latitude` ,
+        `longitude` , `committed`,`contributory`, `add_timestamp_mils`,`mod_timestamp_mils`)
+         values
+        ( #{title}, #{url}, #{content},#{timestamp}, #{latitude},
+          #{longitude}, #{committed}, #{contributory}, #{addTimestampMils}, #{modTimestampMils}
+        )
+    </insert>
+
+    <!--查询-->
+    <select id="query" resultType="NcovNewsPO">
+        select <include refid="table_columns"/>
+        from `ncov_news`
+        <if test="begin!=null and end != null">
+            where `timestamp` between #{begin} and #{end}
+        </if>
+        <if test="begin ==null and end != null">
+            where `timestamp` <![CDATA[<=]]> #{end}
+        </if>
+        <if test="begin !=null and end = null">
+            where `timestamp` <![CDATA[>=]]> #{begin}
+        </if>
+    </select>
+
+
+
+</mapper>

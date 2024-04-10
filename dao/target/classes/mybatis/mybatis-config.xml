@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <settings>
+        <!--1. 参数意义参考： http://www.mybatis.org/mybatis-3/zh/configuration.html#settings
+            2. idea安装mybatis插件，将极大方便错误提示和sql编辑
+        -->
+        <!--将数据库下划线分割自动转为驼峰命名方式-->
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+        <setting name="useGeneratedKeys" value="true"/>
+        <setting name="cacheEnabled" value="false"/>
+        <setting name="defaultFetchSize" value="500"/>
+    </settings>
+    <typeAliases>
+        <!--指定package，则可以避免在mapper xml里头写package-->
+        <package name="com.pcl.healthism.dao.po"/>
+    </typeAliases>
+</configuration>
+

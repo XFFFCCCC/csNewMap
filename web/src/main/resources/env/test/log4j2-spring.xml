@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Configuration status="WARN" monitorInterval="60">
+    <Properties>
+        <Property name="pattern" value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} %m (%F:%L)%n"/>
+        <Property name="appName" value="virus"/>
+        <Property name="logPath" value="/data/logs/${appName}"/>
+    </Properties>
+    <Appenders>
+        <RollingFile name="INFO" fileName="${logPath}/${appName}-info.log"
+        filePattern="${logPath}/${appName}-info-%d{yyyy-MM-dd}-%i.log">
+            <Filters>
+                <ThresholdFilter level="WARN" onMatch="DENY" onMismatch="NEUTRAL"/>
+                <ThresholdFilter level="INFO" onMatch="ACCEPT" onMismatch="DENY"/>
+            </Filters>
+            <PatternLayout pattern="${pattern}"/>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="100 MB"/>
+            </Policies>
+            <!-- 旧文件自动清除,保留最近一个月的日志-->
+            <DefaultRolloverStrategy max="31">
+                <Delete basePath="${logPath}" maxDepth="1">
+                    <IfFileName glob="${appName}-*.log"/>
+                    <IfLastModified age="30d"/>
+                </Delete>
+            </DefaultRolloverStrategy>
+        </RollingFile>
+    </Appenders>
+    <Loggers>
+        <!--线上开发环境打印文件日志-->
+            <Logger name="com.pcl.healthism" level="DEBUG"></Logger>
+            <Root level="INFO">
+                <AppenderRef ref="INFO"/>
+            </Root>
+      </Loggers>
+</Configuration>

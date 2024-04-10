@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>virus-miniapp-backend</artifactId>
+        <groupId>com.pcl.healthism</groupId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+    <packaging>jar</packaging>
+    <artifactId>virus-miniapp-backend-web</artifactId>
+
+    <properties>
+        <skipTests>true</skipTests>
+    </properties>
+
+
+    <dependencies>
+        <!--依赖业务模块-->
+        <dependency>
+            <groupId>com.pcl.healthism</groupId>
+            <artifactId>virus-miniapp-backend-bussiness</artifactId>
+        </dependency>
+
+        <!-- spring boot 开发者工具包-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <scope>runtime</scope>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <!--打包插件-->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <outputDirectory>${project.parent.basedir}/output</outputDirectory>
+                    <finalName>${project.parent.name}-${project.version}</finalName>
+                    <workingDirectory>${project.basedir}</workingDirectory>
+                </configuration>
+            </plugin>
+            <!--本项目需要有配置需要随部署更改，单独输出到指定目录-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <configuration>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>copy-spring-boot-resources</id>
+                        <phase>clean</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <encoding>utf-8</encoding>
+                            <outputDirectory>${project.parent.basedir}/output/config</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>${project.parent.basedir}/web/config</directory>
+                                    <includes>
+                                        <include>robot.properties</include>
+                                        <include>hospital.data</include>
+                                        <include>virus.data</include>
+                                        <include>run.sh</include>
+                                    </includes>
+                                    <filtering>true</filtering>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <!--清理无用文件，并且默认绑定package前先清理，避免配置更改无效问题-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-clean-plugin</artifactId>
+                <configuration>
+                    <filesets>
+                        <fileset>
+                            <!--要清理的目录位置-->
+                            <directory>${basedir}</directory>
+                            <!--是否跟随符号链接 (symbolic links)-->
+                            <followSymlinks>false</followSymlinks>
+                            <!--对这些文件进行清理-->
+                            <includes>
+                                <include>logs</include>
+                            </includes>
+                        </fileset>
+                    </filesets>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>auto-clean</id>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>clean</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+        <resources>
+            <!--
+             1. 分环境配置实现，由下面两个resource和后面profile节点实现
+             2. 约定默认有dev，test, prod三个环境
+                dev: 本地开发使用的配置
+                test: 集成发送测试机器的配置
+                prod: 生产环境使用的配置
+             3. 需要分环境配置的文件依次放置到哥哥目录下即可，maven打包时指定-Pdev，则是使用dev配置，其他亦如此
+            -->
+            <!--拷贝除env目录下的所有环境公用配置文件文件-->
+            <resource>
+                <directory>${project.basedir}/src/main/resources</directory>
+                <filtering>false</filtering>
+                <excludes>
+                    <exclude>env/**</exclude>
+                </excludes>
+            </resource>
+
+            <!--拷贝config目录下的指定环境配置文件-->
+            <resource>
+                <directory>src/main/resources/env/${deploy.type}</directory>
+                <filtering>true</filtering>
+                <includes>
+                    <include>**</include>
+                </includes>
+            </resource>
+        </resources>
+    </build>
+
+</project>

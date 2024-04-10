@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Configuration status="INFO" monitorInterval="60">
+    <Properties>
+        <Property name="logPath" value="${sys:user.dir}/logs/${appName}" />
+        <Property name="pattern" value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} %m (%F:%L)%n"/>
+        <Property name="appName" value="lg-emotion"/>
+    </Properties>
+    <Appenders>
+        <RollingFile name="INFO" fileName="${logPath}/${appName}-info.log"
+        filePattern="${logPath}/${appName}-info-%d{yyyy-MM-dd}-%i.log">
+            <Filters>
+                <ThresholdFilter level="WARN" onMatch="DENY" onMismatch="NEUTRAL"/>
+                <ThresholdFilter level="INFO" onMatch="ACCEPT" onMismatch="DENY"/>
+            </Filters>
+            <PatternLayout pattern="${pattern}"/>
+            <Policies>
+                <!-- 按文件大小分，本示例是100MB增加一个分片文件 -->
+                <SizeBasedTriggeringPolicy size="100 MB"/>
+            </Policies>
+            <!-- 旧文件自动清除,保留最近一个月的日志-->
+            <DefaultRolloverStrategy max="31">
+                <Delete basePath="${logPath}" maxDepth="1">
+                    <IfFileName glob="${appName}-*.log"/>
+                    <IfLastModified age="30d"/>
+                </Delete>
+            </DefaultRolloverStrategy>
+        </RollingFile>
+        <RollingFile name="ERROR" fileName="${logPath}/${appName}-error.log"
+                     filePattern="${logPath}/${appName}-error-%d{yyyy-MM-dd}-%i.log">
+            <Filters>
+                <ThresholdFilter level="WARN" onMatch="ACCEPT" onMismatch="DENY"/>
+            </Filters>
+            <PatternLayout pattern="${pattern}"/>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="100 MB"/>
+            </Policies>
+            <!-- 旧文件自动清除,保留最近一个月的日志-->
+            <DefaultRolloverStrategy max="31">
+                <Delete basePath="${logPath}" maxDepth="1">
+                    <IfFileName glob="${appName}-error-*.log"/>
+                    <IfLastModified age="30d"/>
+                </Delete>
+            </DefaultRolloverStrategy>
+        </RollingFile>
+        <Console name="CONSOLE" target="SYSTEM_OUT">
+            <Filters>
+                <ThresholdFilter level="DEBUG" onMatch="ACCEPT" onMismatch="DENY"/>
+            </Filters>
+            <PatternLayout pattern="${pattern}"/>
+        </Console>
+    </Appenders>
+    <Loggers>
+            <!--本地开发打印控制台日志和文件日志-->
+            <Logger name="com.pcl.healthism" level="DEBUG" additivity="false">
+                <AppenderRef ref="CONSOLE"/>
+            </Logger>
+            <Logger name="com.pcl.healthism.dao.mapper.UserReportMappper" level="ERROR" additivity="false">
+                <AppenderRef ref="CONSOLE"/>
+            </Logger>
+            <Root level="INFO">
+                <AppenderRef ref="INFO"/>
+                <AppenderRef ref="CONSOLE"/>
+                <AppenderRef ref="ERROR"/>
+            </Root>
+      </Loggers>
+</Configuration>

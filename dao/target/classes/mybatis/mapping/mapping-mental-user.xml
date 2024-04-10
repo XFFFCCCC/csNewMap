@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pcl.healthism.dao.mapper.MentalUserMapper">
+
+    <sql id="table_columns">
+        `id`, `user_id`, `age_section`, `district`, `health_status`,`gender`,`add_timestamp_mils`, `mod_timestamp_mils`
+    </sql>
+
+
+    <!--插入数据-->
+    <insert id="insert" parameterType="MentalUserInfoPO" keyProperty="id" >
+        insert into `mental_userinfo`
+        (`user_id`, `age_section`, `district`,`health_status`,`gender`,
+         `add_timestamp_mils`, `mod_timestamp_mils`)
+        values
+        ( #{userId}, #{ageSection}, #{district}, #{healthStatus}, #{gender},
+          #{addTimestampMils}, #{modTimestampMils})
+    </insert>
+
+    <select id="query" resultType="MentalUserInfoPO">
+        select <include refid="table_columns"></include>
+        from `mental_userinfo`
+        where `user_id` = #{userId}
+    </select>
+
+    <update id="update" parameterType="MentalUserInfoPO">
+        update `mental_userinfo`
+        set `health_status` = #{healthStatus},
+            `mod_timestamp_mils` = #{modTimestampMils}
+        where `id` = #{id}
+    </update>
+
+</mapper>

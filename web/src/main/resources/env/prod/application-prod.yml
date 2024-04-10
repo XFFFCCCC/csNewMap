@@ -1,0 +1,61 @@
+
+###spring层级配置
+spring:
+  profiles:
+    active: prod    #分环境配置默认为开发环境配置，线上启动使用java -jar xxx.jar 则可覆盖该配置
+  ####数据库配置
+  ## 注意有关超时设置的单位都是毫秒
+  ## 多数据源配置参考：https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#howto-two-datasources
+  datasource:
+    #添加上allowMultiQueries为true，以支持分号隔开的多个query的支持和插入多行记录的支持
+    url: jdbc:mysql://localhost:3306/health_virus?useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC
+    username: root
+    password: yangxuechao321
+    #springboot官方推荐的史上最快最稳定的数据库链接池Hikari
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      minimum-idle: 5
+      maximum-pool-size: 10
+      #空闲连接清除时间（30分钟）
+      idle-timeout: 1800000
+      auto-commit: true
+      connection-timeout: 30000
+      connection-test-query: SELECT 1
+      pool-name: hkariPool
+      #mysql或其他数据库会定时主动清除空闲链接，通过设置该参数来自动发起test-query请求（需设置比数据库服务端的数值小）
+      #参考 https://github.com/brettwooldridge/HikariCP/issues/1138
+      max-lifetime: 3600000
+  jpa:
+    open-in-view: false
+
+
+#### web服务配置
+#springboot默认内嵌tomcat作为web容器
+server:
+  port: 9995
+  tomcat:
+    uri-encoding: UTF-8
+    accesslog:
+      enabled: true
+      directory: ${userhealth.dir}/logs #强烈推荐生产环境统一放到一个固定的目录,本示例会在工程根目录生成logs目录
+      request-attributes-enabled: true
+    max-http-post-size: 4MB
+    max-threads: 100
+    #同一时刻单机最大活跃链接数，不要设置过大，避免内存被耗尽（假如平均耗时50ms，则该配置单机QPS能到5w）
+    max-connections: 1000
+  servlet:
+    application-display-name: Healthism-robot
+
+###日志配置
+logging:
+  config: classpath:log4j2-spring.xml
+
+###微信小程序配置
+wx:
+  miniapp:
+    configs:
+      - appId: wx17d470e2a1a2658f
+        secret: cd9b7937fadf9a07f433887a6968784e
+        token: lsdjfhlpoweuWlkdnnOIUY
+        aesKey: qjj6wQaXOzwdS55VigqEB3yEcfTLptZUm5K3UD83wU4
+        msgDataFormat: JSON

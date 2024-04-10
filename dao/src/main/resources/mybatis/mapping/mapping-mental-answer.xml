@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pcl.healthism.dao.mapper.MentalAnswerMapper">
+
+    <sql id="table_columns">
+        `id`, `user_id`, `coarse_answer`,`precise_answer`,`timestamp`
+    </sql>
+
+
+    <!--插入数据-->
+    <insert id="insert" parameterType="MentalAnswerPO" keyProperty="id" >
+        insert into `mental_answer`
+        (`user_id`, `coarse_answer`,`precise_answer`,`timestamp`)
+        values
+        ( #{userId}, #{coarseAnswer}, #{preciseAnswer}, #{timestamp})
+    </insert>
+
+    <!--查询-->
+    <select id="query" resultType="MentalAnswerPO">
+        select <include refid="table_columns"/>
+        from `mental_answer`
+        where `id` = #{id}
+    </select>
+
+    <update id="update" parameterType="MentalAnswerPO">
+        update `mental_answer`
+        set `precise_answer` = #{preciseAnswer}
+        where `id` = #{id}
+    </update>
+
+    <select id="queryByUserId" resultType="MentalAnswerPO">
+        select <include refid="table_columns"/>
+        from `mental_answer`
+        where `user_id` = #{userId}
+    </select>
+
+</mapper>

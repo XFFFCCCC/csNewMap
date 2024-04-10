@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pcl.healthism.dao.mapper.WxUserInfoMapper">
+
+    <sql id="table_columns">
+        `id`, `open_id`, `user_mobile`, `nick_name`, `gender` ,
+         `language` , `city` , `province`,`country`, `avatar_url`,
+         `union_id`, `remark`, `add_timestamp_mils`,`mod_timestamp_mils`
+    </sql>
+
+    <!--插入数据-->
+    <insert id="insert" parameterType="WxUserInfoPO" keyProperty="id" >
+        insert into `wx_user_info`(
+         `open_id`, `user_mobile`, `nick_name`, `gender` ,`language` ,
+         `city` , `province`,`country`, `avatar_url`, `union_id`,
+         `add_timestamp_mils`,`mod_timestamp_mils`)
+         values
+        ( #{openId}, #{userMobile}, #{nickName},#{gender}, #{language},
+          #{city}, #{province}, #{country}, #{avatarUrl},  #{unionId},
+          #{addTimestampMils}, #{modTimestampMils}
+        )
+    </insert>
+
+    <!--查询-->
+    <select id="query" resultType="WxUserInfoPO">
+        select <include refid="table_columns"/>
+        from `wx_user_info`
+        where `open_id` = #{openId}
+    </select>
+
+    <!--更新-->
+    <update id="update" parameterType="WxUserInfoPO">
+        update `wx_user_info`
+        set `user_mobile` = #{userMobile},
+            `nick_name` = #{nickName},
+            `gender` = #{gender},
+            `language` = #{language},
+            `city` = #{city},
+            `province` = #{province},
+            `country` = #{country},
+            `avatar_url` = #{avatarUrl},
+            `union_id` = #{unionId},
+            `mod_timestamp_mils` = #{modTimestampMils}
+        where `id` = #{id}
+    </update>
+
+</mapper>
